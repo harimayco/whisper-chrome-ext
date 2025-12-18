@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Whisper Voice-to-Text Service",
+  "version": "1.0.0",
+  "description": "Background voice-to-text service using WASM",
+  "permissions": [
+    "offscreen"
+  ],
+  "host_permissions": [],
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "assets/index.ts-y4mS11IK.js"
+      ],
+      "matches": [
+        "https://harimayco.github.io/*"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "resources": [
+        "models/*",
+        "assets/*"
+      ],
+      "use_dynamic_url": false
+    },
+    {
+      "matches": [
+        "https://harimayco.github.io/*"
+      ],
+      "resources": [
+        "assets/index.ts-y4mS11IK.js"
+      ],
+      "use_dynamic_url": false
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}
