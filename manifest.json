@@ -1,48 +1,43 @@
 {
-  "manifest_version": 3,
-  "name": "Whisper Voice-to-Text Service",
-  "version": "1.0.0",
-  "description": "Background voice-to-text service using WASM",
-  "permissions": [
-    "offscreen"
-  ],
-  "host_permissions": [],
-  "background": {
-    "service_worker": "service-worker-loader.js",
-    "type": "module"
-  },
-  "content_scripts": [
-    {
-      "js": [
-        "assets/index.ts-y4mS11IK.js"
-      ],
-      "matches": [
-        "https://harimayco.github.io/*"
-      ]
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "resources": [
-        "models/*",
-        "assets/*"
-      ],
-      "use_dynamic_url": false
+    "manifest_version": 3,
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
     },
-    {
-      "matches": [
-        "https://harimayco.github.io/*"
-      ],
-      "resources": [
-        "assets/index.ts-y4mS11IK.js"
-      ],
-      "use_dynamic_url": false
-    }
-  ],
-  "content_security_policy": {
-    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
-  }
+    "name": "RetroClip AI Transcriber",
+    "version": "1.0",
+    "description": "Offline speech-to-text using Transcribe.js (WASM)",
+    "permissions": [
+        "offscreen",
+        "runtime"
+    ],
+    "host_permissions": [
+        "*://localhost/*",
+        "https://harimayco.github.io/merge-video-ai/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://localhost/*",
+                "https://harimayco.github.io/merge-video-ai/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "ggml-model-tiny-id-q5_1.bin",
+                "main.worker.js",
+                "shout.wasm"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
 }
